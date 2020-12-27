@@ -853,7 +853,6 @@ jobs:
           # ========================固件定制部分结束========================
           #
           sed -i 's/^[ \t]*//g' ./.config
-          make defconfig
       - name: show config file context
         run: |
           cd lede
