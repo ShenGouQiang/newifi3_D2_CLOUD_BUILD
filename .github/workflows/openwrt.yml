@@ -1,0 +1,16 @@
+name: OpenWrt Cloud Build
+on: 
+  push:
+    branches:    
+      - master
+jobs:
+  My First jobs:
+    name: My first job
+    runs-on: ubuntu-18.04
+    steps:
+      - name: checkout
+        run: git clone https://github.com/coolsnowwolf/lede.git
+      - name: list show
+        run: ls ./
+      - name: show path
+        run: pwd
