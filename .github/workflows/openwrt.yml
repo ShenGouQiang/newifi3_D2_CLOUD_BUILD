@@ -42,7 +42,7 @@ jobs:
       - name: build lede
         run: |
           cd lede
-          make -j1 V=s
+          make -j$(nproc) V=s
       - name: assemble artifact
         run: |
           rm -rf ./artifact/
