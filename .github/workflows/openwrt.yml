@@ -3,7 +3,7 @@ on:
   push
 jobs:
   My First jobs:
-    name: My first job
+    name: My_first_Job
     runs-on: ubuntu-18.04
     steps:
       - name: checkout
