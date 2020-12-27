@@ -1,8 +1,6 @@
 name: OpenWrt Cloud Build
 on: 
-  push:
-    branches:    
-      - master
+  push
 jobs:
   My First jobs:
     name: My first job
