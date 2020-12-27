@@ -11,6 +11,6 @@ jobs:
       - name: checkout
         run: git clone https://github.com/coolsnowwolf/lede.git
       - name: list show
-        run: ls ./
+        run: echo `ls ./`
       - name: show path
-        run: pwd
+        run: echo `pwd`
