@@ -2,7 +2,7 @@ name: OpenWrt Cloud Build
 on: 
   push
 jobs:
-  My First jobs:
+  my-first-job:
     name: my_first_job
     runs-on: ubuntu-18.04
     steps:
