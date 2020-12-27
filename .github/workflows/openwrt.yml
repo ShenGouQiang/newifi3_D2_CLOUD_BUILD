@@ -2,54 +2,54 @@ name: OpenWrt Cloud Build
 on: 
   push
 jobs:
-  my-first-job:
-    name: my_first_job
+  cloud_build:
+    name: Cloud Build OpenWrt
     runs-on: ubuntu-18.04
     steps:
-      - name: apt_update
+      - name: apt update
         run: |
           sudo apt-get update
           sudo apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch python3 python2.7 unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler g++-multilib antlr3 gperf wget curl swig rsync
-      - name: checkout_lede
+      - name: checkout code
         run: |
           git  clone https://github.com/coolsnowwolf/lede.git
-      - name: add_passwall
+      - name: add passwall package
         run: |
           echo "src-git lienol https://github.com/Lienol/openwrt-package" >> lede/feeds.conf.default
-      - name: update_feed
+      - name: update feeds
         run: |
           ./lede/scripts/feeds update -a
-      - name: delete_conflict_package
+      - name: delete conflict package
         run: |
           rm -rf lede/feeds/lienol/lienol/ipt2socks
           rm -rf lede/feeds/lienol/lienol/shadowsocksr-libev
           rm -rf lede/feeds/lienol/lienol/pdnsd-alt
           rm -rf lede/feeds/lienol/package/verysync
           rm -rf lede/feeds/lienol/lienol/luci-app-verysync
-      - name: install_feed
+      - name: install feed
         run: |
           ./lede/scripts/feeds install -a
-      - name: generate_config_file
+      - name: generate config file
         run: |
           cd lede
           make defconfig
-      - name: download_package
+      - name: download package
         run: |
           cd lede
           make -j8 download V=s
           find dl -size -1024c -exec ls -l {} \;
           find dl -size -1024c -exec rm -f {} \;
-      - name: build_lede
+      - name: build lede
         run: |
           cd lede
           make -j1 V=s
-      - name: Assemble artifact
+      - name: assemble artifact
         run: |
           rm -rf ./artifact/
           mkdir -p ./artifact/
           find ./bin/targets/ -name "*combined*img*" | xargs -i mv -f {} ./artifact/
           find ./bin/targets/ -name "*sysupgrade*bin*" | xargs -i mv -f {} ./artifact/
-      - name: Upload artifact
+      - name: upload artifact
         uses: actions/upload-artifact@master
         with:
           name: openwrt-ramips-mt7621-d-team_newifi-d2-squashfs-sysupgrade
