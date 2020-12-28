@@ -1,6 +1,8 @@
 name: OpenWrt Cloud Build
-on: 
-  push
+on:
+  push:
+    branches: 
+      - master
 jobs:
   cloud_build:
     name: Cloud Build OpenWrt
