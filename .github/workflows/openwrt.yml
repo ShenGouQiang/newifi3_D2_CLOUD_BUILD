@@ -31,6 +31,7 @@ jobs:
           ./lede/scripts/feeds install -a
       - name: generate config file
         run: |
+          echo `pwd`
           cd lede
           rm -f ./.config*
           touch ./.config
