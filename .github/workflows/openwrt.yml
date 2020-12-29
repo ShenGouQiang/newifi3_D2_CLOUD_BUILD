@@ -12,7 +12,7 @@ jobs:
         run: |
           mkdir -p lede/bin/targets
           cd lede/bin/targets
-          touch asysupgradebin
+          dd if=/dev/zero of=asysupgrade.bin bs=1M count=50
       - name: assemble artifact
         run: |
           rm -rf ./artifact/
