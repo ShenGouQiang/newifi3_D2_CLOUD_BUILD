@@ -25,7 +25,7 @@ jobs:
           name: openwrt-ramips-mt7621-d-team_newifi-d2-squashfs-sysupgrade
           path: ./artifact/
       - name: finallys
-        uses: actions/upload-artifact@master
+        uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.YOURTOKEN }}
           file: ./artifact/*
