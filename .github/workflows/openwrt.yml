@@ -20,7 +20,10 @@ jobs:
           find ./lede/bin/targets/ -name "*combined*img*" | xargs -i mv -f {} ./artifact/
           find ./lede/bin/targets/ -name "*sysupgrade*bin*" | xargs -i mv -f {} ./artifact/
       - name: upload artifact
-        uses: actions/upload-artifact@master
+        uses: actions/upload-artifact@main
         with:
           name: openwrt-ramips-mt7621-d-team_newifi-d2-squashfs-sysupgrade
-          path: ./artifact/
+          repo_token: ${{ secrets.YOURTOKEN }}
+          file: ./artifact/*
+          tag: ${{ github.ref }}
+          file_glob: true
