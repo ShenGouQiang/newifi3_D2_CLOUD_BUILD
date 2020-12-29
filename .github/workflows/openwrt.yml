@@ -12,7 +12,7 @@ jobs:
         run: |
           mkdir -p lede/bin/targets
           cd lede/bin/targets
-          touch asysupgrade.bin
+          touch asysupgradebin
       - name: assemble artifact
         run: |
           rm -rf ./artifact/
@@ -20,9 +20,13 @@ jobs:
           find ./lede/bin/targets/ -name "*combined*img*" | xargs -i mv -f {} ./artifact/
           find ./lede/bin/targets/ -name "*sysupgrade*bin*" | xargs -i mv -f {} ./artifact/
       - name: upload artifact
-        uses: actions/upload-artifact@main
+        uses: actions/upload-artifact@master
         with:
           name: openwrt-ramips-mt7621-d-team_newifi-d2-squashfs-sysupgrade
+          path: ./artifact/
+      - name: finallys
+        uses: actions/upload-artifact@master
+        with:
           repo_token: ${{ secrets.YOURTOKEN }}
           file: ./artifact/*
           tag: ${{ github.ref }}
