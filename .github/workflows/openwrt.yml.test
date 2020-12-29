@@ -1,0 +1,33 @@
+name: OpenWrt Cloud Build
+on:
+  push:
+    tags:
+    - 'v*'
+jobs:
+  cloud_build:
+    name: Cloud Build OpenWrt
+    runs-on: ubuntu-18.04
+    steps:
+      - name: prepare
+        run: |
+          mkdir -p lede/bin/targets
+          cd lede/bin/targets
+          dd if=/dev/zero of=asysupgrade.bin bs=1M count=50
+      - name: assemble artifact
+        run: |
+          rm -rf ./artifact/
+          mkdir -p ./artifact/
+          find ./lede/bin/targets/ -name "*combined*img*" | xargs -i mv -f {} ./artifact/
+          find ./lede/bin/targets/ -name "*sysupgrade*bin*" | xargs -i mv -f {} ./artifact/
+      - name: upload artifact
+        uses: actions/upload-artifact@master
+        with:
+          name: openwrt-ramips-mt7621-d-team_newifi-d2-squashfs-sysupgrade
+          path: ./artifact/
+      - name: finallys
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: ./artifact/*
+          tag: ${{ github.ref }}
+          file_glob: true
