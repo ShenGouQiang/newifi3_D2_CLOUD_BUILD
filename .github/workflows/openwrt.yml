@@ -875,8 +875,8 @@ jobs:
         run: |
           rm -rf ./artifact/
           mkdir -p ./artifact/
-          find ./bin/targets/ -name "*combined*img*" | xargs -i mv -f {} ./artifact/
-          find ./bin/targets/ -name "*sysupgrade*bin*" | xargs -i mv -f {} ./artifact/
+          find ./lede/bin/targets/ -name "*combined*img*" | xargs -i mv -f {} ./artifact/
+          find ./lede/bin/targets/ -name "*sysupgrade*bin*" | xargs -i mv -f {} ./artifact/
       - name: upload artifact
         uses: actions/upload-artifact@master
         with:
